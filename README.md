@@ -40,7 +40,35 @@ cd fastlio_ws
 source devel/setup.bash
 ```
 
-## 快速启动（Velodyne 场景）
+## 推荐启动（task5 集成）
+
+在加载环境后，优先使用 `task5_fastlio.launch`（已适配当前三仓联调方案）：
+
+```bash
+cd fastlio_ws
+source devel/setup.bash
+roslaunch fast_lio task5_fastlio.launch
+```
+
+默认行为：
+
+- 启动 Livox 驱动并发布 `/livox/lidar`、`/livox/imu`
+- 启动 FAST-LIO（`mapping_avia.launch`）
+- 输出核心结果：`map -> body`、`/Odometry`、`/cloud_registered`
+
+可选参数示例：
+
+```bash
+roslaunch fast_lio task5_fastlio.launch livox_bd_list:=<你的雷达序列号> livox_frame:=livox_frame fastlio_rviz:=true
+```
+
+说明：
+
+- `livox_bd_list`：Livox 设备序列号列表
+- `livox_frame`：Livox 发布的 frame 名称（默认 `livox_frame`）
+- `fastlio_rviz`：是否启用 FAST-LIO 自带 Rviz
+
+## 传统启动（Velodyne 场景）
 
 在加载环境后，通过以下命令启动建图（你提供的命令）：
 
